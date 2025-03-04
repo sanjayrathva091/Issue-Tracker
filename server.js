@@ -3,6 +3,7 @@
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const expect      = require('chai').expect;
+const mongoose = require('mongoose');
 const cors        = require('cors');
 require('dotenv').config();
 
@@ -45,7 +46,10 @@ app.use(function(req, res, next) {
     .type('text')
     .send('Not Found');
 });
-
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 //Start our server and tests!
 const listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
